@@ -3,7 +3,6 @@ package symetric_key
 import (
 	"errors"
 	"io"
-	"libcrypto"
 )
 
 type Otp struct {
@@ -17,7 +16,7 @@ func NewOtp(keySize uint32) (*Otp, error) {
 	return &Otp{keySize: keySize}, nil
 }
 
-func (s Otp) Encrypt(key libcrypto.Key, message []byte) ([]byte, error) {
+func (s Otp) Encrypt(key Key, message []byte) ([]byte, error) {
 	if s.keySize != uint32(key.Size()) {
 		return nil, errors.New("invalid key size")
 	}
@@ -32,7 +31,7 @@ func (s Otp) Encrypt(key libcrypto.Key, message []byte) ([]byte, error) {
 	return ciphertext, nil
 }
 
-func (s Otp) Decrypt(key libcrypto.Key, ciphertext []byte) ([]byte, error) {
+func (s Otp) Decrypt(key Key, ciphertext []byte) ([]byte, error) {
 	if s.keySize != uint32(key.Size()) {
 		return nil, errors.New("invalid key size")
 	}

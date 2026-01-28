@@ -1,4 +1,4 @@
-package libcrypto
+package symetric_key
 
 import (
 	"io"
